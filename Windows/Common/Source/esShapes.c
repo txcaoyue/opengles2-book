@@ -277,3 +277,100 @@ int ESUTIL_API esGenCube ( float scale, GLfloat **vertices, GLfloat **normals,
 
    return numIndices;
 }
+
+#if 0
+     v1
+     /\
+	/  \
+   / v4 \
+   v2   v3
+#endif
+#define ARROW_V1	0.0f, 1.0f, 0.0f
+#define ARROW_V2	-0.3f, -0.3f, 0.0f
+#define ARROW_V3	0.3f, -0.3f, 0.0f
+#define ARROW_V4	0.0f, 0.0f, 0.3f
+
+#define ARROW_C1	1.0f, 0.0f, 0.0f, 0.0f
+#define ARROW_C2	0.0f, 1.0f, 0.0f, 0.0f
+#define ARROW_C3	0.0f, 0.0f, 1.0f, 0.0f
+
+int ESUTIL_API esGenArrow ( float scale, GLfloat **vertices, GLfloat **colors, GLfloat **normals, 
+                           GLfloat **texCoords, GLuint **indices )
+{
+   int i;
+   int numVertices = 12;
+   int numIndices = 12;
+   
+   GLfloat arrowVerts[] =
+   {  
+	  //ARROW_V1,
+      //ARROW_V2,
+      //ARROW_V3,
+	  
+      ARROW_V1,
+	  ARROW_V4,
+      ARROW_V2,
+      
+      ARROW_V1,
+      ARROW_V4,
+      ARROW_V3,
+
+      //ARROW_V2,
+      //ARROW_V3,
+      //ARROW_V4,     
+   };
+
+   GLfloat arrowColors[] =
+   {
+      ARROW_C1,
+      ARROW_C1,
+      ARROW_C1,
+
+      ARROW_C2,
+      ARROW_C2,
+      ARROW_C2,
+
+      ARROW_C3,
+      ARROW_C3,
+      ARROW_C3,
+
+      ARROW_C1,
+      ARROW_C1,
+      ARROW_C1,
+   };
+
+   
+   // Allocate memory for buffers
+   if ( vertices != NULL )
+   {
+      *vertices = (GLfloat*)malloc ( sizeof(GLfloat) * 3 * numVertices );
+      memcpy( *vertices, arrowVerts, sizeof( arrowVerts ) );
+      for ( i = 0; i < numVertices*3; i++ )
+      {
+         (*vertices)[i] *= scale;
+      }
+   }
+
+   if ( colors != NULL )
+   {
+      *colors = (GLfloat*)malloc ( sizeof(GLfloat) * 4 * numVertices );
+      memcpy( *colors, arrowColors, sizeof( arrowColors ) );
+   }
+
+   // Generate the indices
+   if ( indices != NULL )
+   {
+      GLuint arrowIndices[] =
+      {
+         0, 1, 2,
+         3,4,5,
+		 6,7,8,
+		 9,10,11
+      };
+
+      *indices = malloc ( sizeof(GLuint) * numIndices );
+      memcpy( *indices, arrowIndices, sizeof( arrowIndices ) );
+   }
+
+   return numIndices;
+}

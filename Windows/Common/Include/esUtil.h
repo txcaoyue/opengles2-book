@@ -194,6 +194,9 @@ int ESUTIL_API esGenSphere ( int numSlices, float radius, GLfloat **vertices, GL
 int ESUTIL_API esGenCube ( float scale, GLfloat **vertices, GLfloat **normals, 
                            GLfloat **texCoords, GLuint **indices );
 
+int ESUTIL_API esGenArrow ( float scale, GLfloat **vertices, GLfloat **colors, GLfloat **normals, 
+                           GLfloat **texCoords, GLuint **indices );
+
 //
 /// \brief Loads a 24-bit TGA image from a file
 /// \param fileName Name of the file on disk
